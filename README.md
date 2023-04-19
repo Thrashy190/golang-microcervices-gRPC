@@ -1,6 +1,5 @@
 # Advance golang course: Protobuf and gRPC
 
----
 
 This is the documentation for my Golang gRPC project. 
 This project is part of my learning process of golang and gRPC. 
@@ -22,7 +21,6 @@ gRPC is a modern, open source, high-performance remote procedure call (RPC) fram
 
 Official documentation: https://grpc.io/docs/
 
----
 
 ## Before staring
 
@@ -58,7 +56,6 @@ go get google.golang.org/grpc
 go get github.com/lib/pq
 ```
 
----
 
 ## To start
 
