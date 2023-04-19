@@ -86,3 +86,9 @@ docker build -t github-thrashy-grpc .
 ```bash
 docker run -d -p 54321:5432 --name postgres-grpc github-thrashy-grpc
 ```
+
+### Run the server
+
+```bash
+go run server-student/main.go
+```
