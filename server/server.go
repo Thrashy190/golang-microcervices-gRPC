@@ -8,11 +8,11 @@ import (
 )
 
 type Server struct {
-	repo repository.StudentRepository
+	repo repository.Repository
 	studentpb.UnimplementedStudentServiceServer
 }
 
-func NewStudentServer(repo repository.StudentRepository) *Server {
+func NewStudentServer(repo repository.Repository) *Server {
 	return &Server{repo: repo}
 }
 

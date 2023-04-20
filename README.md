@@ -56,23 +56,28 @@ go get google.golang.org/grpc
 go get github.com/lib/pq
 ```
 
-
 ## To start
 
 ### Compile the proto file to golang code using protoc
 
-This command will generate the golang code for the proto file.
-example: `student.pb.go` in the proto folder
+This command will generate the golang code for the proto file,
+example: `student.pb.go` and `student_grpc.pb.go` in the proto folder
 
+Student proto file: `studentpb/student.studentpb`
 ```bash
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative studentpb/student.studentpb
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative studentpb/student.proto
 ```
+Test proto file: `testpb/test.testpb`
+```bash
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative testpb/test.proto
+```
+
 
 + `--go_out` is the output path for the generated golang code
 + `--go_opt` is the option for the generated golang code
 + `--go-grpc_out` is the output path for the generated golang code
 + `--go-grpc_opt` is the option for the generated golang code
-+ `proto/student.proto` is the path to the proto file
++ `name/name.proto` is the path to the proto file
 
 ### Run DockerFile to build the postgres db
 
@@ -81,7 +86,7 @@ cd database
 docker build -t github-thrashy-grpc .
 ```
 
-### Run the postgres db
+### Deploy the postgres db
 
 ```bash
 docker run -d -p 54321:5432 --name postgres-grpc github-thrashy-grpc
