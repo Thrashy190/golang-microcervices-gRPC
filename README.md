@@ -1,6 +1,5 @@
 # Advance golang course: Protobuf and gRPC
 
-
 This is the documentation for my Golang gRPC project. 
 This project is part of my learning process of golang and gRPC. 
 To understand `microservices`.
@@ -60,16 +59,39 @@ go get github.com/lib/pq
 
 ### Compile the proto file to golang code using protoc
 
-This command will generate the golang code for the proto file,
-example: `student.pb.go` and `student_grpc.pb.go` in the proto folder
+Here are two different ways to compile the proto file to golang code
 
-Student proto file: `studentpb/student.studentpb`
+This command will generate the golang code for the proto file,
+
+example: `student.pb.go` and `student_grpc.pb.go` in the proto folder or `test.pb.go` and `test_grpc.pb.go` in the proto folder
+
+
+Student proto file: `studentpb/student.studentpb` 
+
 ```bash
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative studentpb/student.proto
 ```
+
 Test proto file: `testpb/test.testpb`
 ```bash
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative testpb/test.proto
+
+```
+or you can run this script to compile all the proto files in the proto folder
+```bash
+./compile-proto-files.sh studentpb/student.proto testpb/test.proto
+```
+
+in this file is this code white a loop to compile all the proto files in the proto folder
+    
+```bash
+#!/bin/bash
+
+for file in "$@"
+do
+    echo "Compiling $file"
+    protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative $file
+done
 ```
 
 
