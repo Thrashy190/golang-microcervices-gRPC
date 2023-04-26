@@ -83,3 +83,41 @@ func (repo *PostgresRepository) GetTest(ctx context.Context, id string) (*models
 
 	return &test, err
 }
+
+func (repo *PostgresRepository) SetQuestion(ctx context.Context, question *models.Question) error {
+	_, err := repo.db.ExecContext(ctx, "INSERT INTO questions(id, answer, question, test_id) VALUES($1, $2, $3, $4)", question.Id, question.Answer, question.Question, question.TestId)
+	return err
+}
+
+func (repo *PostgresRepository) SetEnrollment(ctx context.Context, enrollment *models.Enrollment) error {
+	_, err := repo.db.ExecContext(ctx, "INSERT INTO enrollments(student_id, test_id) VALUES($1, $2)", enrollment.StudentId, enrollment.TestId)
+	return err
+}
+
+func (repo *PostgresRepository) GetStudentsPerTest(ctx context.Context, testId string) ([]*models.Student, error) {
+	rows, err := repo.db.QueryContext(ctx, "SELECT s.id, s.name, s.age FROM students s INNER JOIN enrollments e ON s.id = e.student_id WHERE e.test_id = $1", testId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer func() {
+		err := rows.Close()
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	var students []*models.Student
+
+	for rows.Next() {
+		var student = models.Student{}
+		err := rows.Scan(&student.Id, &student.Name, &student.Age)
+		if err != nil {
+			return nil, err
+		}
+		students = append(students, &student)
+	}
+
+	return students, err
+}

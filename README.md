@@ -1,5 +1,8 @@
 # Advance golang course: Protobuf and gRPC
 
+
+## What is this project?
+
 This is the documentation for my Golang gRPC project. 
 This project is part of my learning process of golang and gRPC. 
 To understand `microservices`.
@@ -20,6 +23,7 @@ gRPC is a modern, open source, high-performance remote procedure call (RPC) fram
 
 Official documentation: https://grpc.io/docs/
 
+<br>
 
 ## Before staring
 
@@ -75,31 +79,20 @@ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=p
 Test proto file: `testpb/test.testpb`
 ```bash
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative testpb/test.proto
-
 ```
-or you can run this script to compile all the proto files in the proto folder
+
+Or you can run this script to compile all the proto files in the proto folder
 ```bash
 ./compile-proto-files.sh studentpb/student.proto testpb/test.proto
 ```
-
-in this file is this code white a loop to compile all the proto files in the proto folder
-    
-```bash
-#!/bin/bash
-
-for file in "$@"
-do
-    echo "Compiling $file"
-    protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative $file
-done
-```
-
 
 + `--go_out` is the output path for the generated golang code
 + `--go_opt` is the option for the generated golang code
 + `--go-grpc_out` is the output path for the generated golang code
 + `--go-grpc_opt` is the option for the generated golang code
 + `name/name.proto` is the path to the proto file
+
+<br>
 
 ### Run DockerFile to build the postgres db
 
